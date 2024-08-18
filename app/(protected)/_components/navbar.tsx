@@ -2,7 +2,7 @@
 
 import { UserButton } from "@/components/auth/user-button";
 import { Button } from "@/components/ui/button";
-import { useCurrentUser } from "@/hooks/use-current-user";
+import { CurrentUser } from "@/hooks/use-current-user";
 import { ExtendedUser } from "@/next-auth";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,11 +10,11 @@ import { useCallback, useEffect, useState } from "react";
 
 export const Navbar = () => {
   const [user, setUser] = useState<ExtendedUser | null | undefined>(null);
-  const getSession = useCallback(() => {
-    useCurrentUser().then((data) => {
+  const getSession = () => {
+    CurrentUser().then((data) => {
       setUser(data);
     });
-  }, []);
+  };
   useEffect(() => {
     getSession();
   }, []);

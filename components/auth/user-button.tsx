@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { useCurrentUser } from "@/hooks/use-current-user";
+import { CurrentUser } from "@/hooks/use-current-user";
 import { LogoutButton } from "./logout-button";
 import { ExitIcon } from "@radix-ui/react-icons";
 import { useCallback, useEffect, useState } from "react";
@@ -16,11 +16,11 @@ import { ExtendedUser } from "@/next-auth";
 
 export const UserButton = () => {
   const [user, setUser] = useState<ExtendedUser | null | undefined>(null);
-  const getSession = useCallback(() => {
-    useCurrentUser().then((data) => {
+  const getSession = () => {
+    CurrentUser().then((data) => {
       setUser(data);
     });
-  }, []);
+  };
   useEffect(() => {
     getSession();
   }, []);
